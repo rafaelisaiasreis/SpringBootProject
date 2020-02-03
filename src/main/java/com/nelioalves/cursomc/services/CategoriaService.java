@@ -22,8 +22,13 @@ public class CategoriaService {
 	}
 
 	public Categoria insert(Categoria categoria){
-		categoria.setId(null); //O JPA entende que , como id é null, se trata de uma atualização
+		categoria.setId(null); //O JPA entende que , como id é null, se trata de uma inserção
 		return repo.save(categoria);
+	}
+
+	public Categoria update(Categoria categoria){
+		find(categoria.getId());
+		return repo.save(categoria); // como o id não é nulo , ele atualiza o id existente
 	}
 
 }
