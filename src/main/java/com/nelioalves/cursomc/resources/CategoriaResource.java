@@ -15,6 +15,7 @@ import com.nelioalves.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.services.CategoriaService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +34,8 @@ public class CategoriaResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Categoria categoria){
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO categoriaDTO){
+		Categoria categoria = service.fromDTO(categoriaDTO);
 		categoria = service.insert(categoria);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(categoria.getId()).toUri(); // BOAS PRÁTICAS, quando inserir , retornar a URI do recurso
@@ -41,7 +43,8 @@ public class CategoriaResource {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-	public ResponseEntity<Void> update(@RequestBody Categoria categoria, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable Integer id){
+		Categoria categoria = service.fromDTO(categoriaDTO);
 		categoria.setId(id);
 		categoria = service.update(categoria);
 		return ResponseEntity.noContent().build();
