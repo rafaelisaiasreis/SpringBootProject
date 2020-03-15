@@ -3,6 +3,7 @@ package com.nelioalves.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.nelioalves.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.dto.CategoriaDTO;
 import com.nelioalves.cursomc.services.exceptions.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,14 @@ public class CategoriaService {
     return repo.save(categoria);
   }
 
-  public Categoria update(Categoria categoria) {
-    find(categoria.getId());
-    return repo.save(categoria); // como o id não é nulo , ele atualiza o id existente
+  public Categoria update(Categoria obj) {
+    Categoria newObj = find(obj.getId());
+    updateData(newObj, obj);
+    return repo.save(newObj); // como o id não é nulo , ele atualiza o id existente
+  }
+
+  private void updateData(Categoria newObj, Categoria obj) {
+    newObj.setNome(obj.getNome());
   }
 
   public void delete(Integer id) {
