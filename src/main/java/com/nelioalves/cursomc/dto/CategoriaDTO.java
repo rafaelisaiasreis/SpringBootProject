@@ -4,14 +4,12 @@ import com.nelioalves.cursomc.domain.Categoria;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Data
 public class CategoriaDTO implements Serializable {
